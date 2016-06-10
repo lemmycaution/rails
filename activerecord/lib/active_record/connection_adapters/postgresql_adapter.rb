@@ -622,7 +622,7 @@ module ActiveRecord
 
       # Returns the list of all tables in the schema search path or a specified schema.
       def tables(name = nil)
-        schemas = schema_search_path.split(/,/).map { |p| quote(p) }.join(',')
+        schemas = schema_search_path.split(/,/).map { |p| quote(p.strip) }.join(',')
         query(<<-SQL, name).map { |row| row[0] }
           SELECT tablename
             FROM pg_tables
